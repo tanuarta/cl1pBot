@@ -78,7 +78,7 @@ async def clip(ctx):
                 drive_title = title + ".mp4"
                 os.rename(filename, drive_title)
                 await ctx.send("Beginning upload to Google Drive")
-                fileId = upload(filename)
+                fileId = upload(drive_title)
                 await ctx.send('Uploaded file to {url}'.format(url='https://drive.google.com/open?id=' + fileId))
                 os.remove(drive_title)
             else:
