@@ -4,8 +4,6 @@ import logging
 import os, subprocess
 import config
 from googleapiclient.discovery import build
-from pydrive.auth import GoogleAuth
-from pydrive.drive import GoogleDrive
 from uploadGdrive import upload
 
 logger = logging.getLogger('discord')
