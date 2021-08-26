@@ -19,9 +19,6 @@ async def on_ready(): # When the bot starts
 
 def author_check(author):
     return lambda ctx: ctx.author == author
-    
-
-
 
 @bot.command()
 async def clip(ctx):
@@ -33,12 +30,24 @@ async def clip(ctx):
             await attachment.save(attachment.filename)
 
     await ctx.send("Please reply with a **title**")
-    title = await bot.wait_for("message", check=author_check(ctx.author), timeout=30)
+    reply = await bot.wait_for("message", check=author_check(ctx.author), timeout=30)
+    title = reply.content
+    
+    await ctx.send("Please reply with **public**, **private** or **unlisted** for the video privacy settings, default is unlisted")
+    reply = await bot.wait_for("message", check=author_check(ctx.author), timeout=30)
+    if "public" in reply.content:
+        privacy = "public"
+    elif "private" in reply.content:
+        privacy = "private"
+    else:
+        privacy = "unlisted"
 
-    output = subprocess.check_output("youtube-upload --title=\'" + title.content + "' " + attachment.filename, shell=True)
+    await ctx.send("Uploading with title: **" + title + "**. This can take a few minutes")
+    
+    output = subprocess.check_output("youtube-upload --privacy='" + privacy + "' --title=\'" + title + "' " + attachment.filename, shell=True)
+
 
     msg = "Upload Complete: https://www.youtube.com/watch?v=" + output.decode("utf-8")
-
     await ctx.message.channel.send(msg)
 
     os.remove(attachment.filename)
