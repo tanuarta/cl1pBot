@@ -75,9 +75,12 @@ async def clip(ctx):
             await ctx.send("An error has occurred most likely I ran out of YT upload quotas, would you like to upload to Google Drive instead? (y/n)")
             reply = await bot.wait_for("message", check=author_check(ctx.author), timeout=30)
             if reply.content == "y":
+                drive_title = title + ".mp4"
+                os.rename(filename, drive_title)
                 await ctx.send("Beginning upload to Google Drive")
-                fileId = upload(filename, title)
+                fileId = upload(filename)
                 await ctx.send('Uploaded file to {url}'.format(url='https://drive.google.com/open?id=' + fileId))
+                os.remove(drive_title)
             else:
                 await ctx.send("Please wait a few hours until my quota is refilled")
 
