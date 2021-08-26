@@ -1,5 +1,6 @@
 from googleapiclient.http import MediaFileUpload
 from Google import Create_Service
+import config
 
 CLIENT_SECRET_FILE = 'client_secrets.json'
 API_NAME = 'drive'
@@ -8,7 +9,7 @@ SCOPES = ['https://www.googleapis.com/auth/drive']
 
 service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
 
-folder_id = '1SvBMA88yCqetZbf6ICxyZ47HkBX5n919'
+folder_id = config.folder_id
 
 def upload(filename):
     file_metadata = {
