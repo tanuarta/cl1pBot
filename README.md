@@ -8,6 +8,6 @@ Currently using Google.py from https://learndataanalysis.org/google-drive-api-in
 
 Dependencies:
 
-pip3 install discord
+```pip3 install discord```
 
-sudo pip3 --upgrade google-api-python-client oauth2client progressbar2 google-auth-oauthlib
+```sudo pip3 --upgrade google-api-python-client oauth2client progressbar2 google-auth-oauthlib```
